@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver  #使用P6spy
+    url: jdbc:p6spy:mysql://localhost:3306/blog?serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    #解决swagger的继承报错，原因是因为swagger升级2.6x之后和springboot出现了不兼容情况
+
+
