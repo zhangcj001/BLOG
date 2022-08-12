@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +21,7 @@ public class FileController {
 
     @PostMapping("/uploadFile")
     @ApiOperation(value = "上传附件",notes = "文章上传附件")
-    public Boolean uploadFile(MultipartFile files) throws  IllegalStateException, IOException {
+    public Boolean uploadFile(@RequestPart("file") MultipartFile files) throws  IllegalStateException, IOException {
         return fileServiceImpl.UploadFile(files);
     }
 }
