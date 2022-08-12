@@ -23,8 +23,10 @@ public class UserController {
     @GetMapping("/login")
     @ApiOperation(value = "登录",notes = "输入账号密码登录,返回token")
     public String login(String account, String password) {
+        //查找
         User user= userServiceImpl.login(account,password);
         String token= JWTUtil.createToken(user);
+        //返回token
         System.out.println(token);
         return token;
 //        根据 title返回essay列表
@@ -32,10 +34,12 @@ public class UserController {
 
     @GetMapping("/currentUser")
     @ApiOperation(value = "当前用户",notes = "根据token返回当前用户")
-    public Integer currentUser(String token) {
+    public User currentUser(String token) {
+        //解析token，拿到userid
         Integer userId= JWTUtil.verifyToken(token);
         System.out.println(userId);
-        return userId;
+        User user=userServiceImpl.getUser(userId);
+        return user;
 //        根据 title返回essay列表
     }
 

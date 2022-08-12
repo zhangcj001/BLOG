@@ -1,6 +1,7 @@
 package com.blognew.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -35,14 +36,26 @@ public class EssayServiceImpl extends ServiceImpl<EssayMapper,Essay> implements 
         return essay;
     }
 
-//    根据当前用户判断是不是自己的文章，不是自己的就返回false
-    public Boolean isMyEssay(){
 
-        return false;
+//    根据当前用户判断是不是自己的文章，不是自己的就返回false
+    public Boolean isMyEssay(Integer essayId,Integer userId){
+        QueryWrapper queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("essay_id",essayId);
+        queryWrapper.eq("user_id",userId);
+        Essay essay=this.getOne(queryWrapper);
+        if(essay==null)
+            return false;
+        else
+            return true;
     }
 
+
     //增加essay表中的browse_num
-    public void addBrowse(){
+    public Boolean addBrowse(Integer essayId){
+        UpdateWrapper updateWrapper=new UpdateWrapper<>();
+        updateWrapper.eq("essay_id",essayId);
+        updateWrapper.setSql("browse_num=browse_num+1");
+        return this.update(updateWrapper);
 
     };
 

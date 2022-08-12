@@ -18,10 +18,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user=this.getOne(queryWrapper);
         return user;
     }
-    //根据信息创建token
-//    public String creatToken(User user){
-//        Integer userId=user.getUserId();
-//        String nickName=user.getNickName();
-//        return JWT
-//    }
+    //根据id,返回User
+    public User getUser(Integer userId){
+        QueryWrapper queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("user_id",userId);
+        User user=this.getOne(queryWrapper);
+        return user;
+    }
 }
